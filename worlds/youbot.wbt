@@ -1,0 +1,186 @@
+#VRML_SIM R2023a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/floors/protos/Floor.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/factory/containers/protos/WoodenBox.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/robots/kuka/youbot/protos/KukaBox.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/robots/kuka/youbot/protos/Youbot.proto"
+
+WorldInfo {
+  info [
+    "Simulation of the KUKA youBot robot."
+    "This model includes an accurate and fast simulation of the Meccanum wheels."
+    "The robot can be equiped with various sensors (including the Microsoft Kinect) and configured with zero, one or two arms."
+  ]
+  title "KUKA youBot"
+  basicTimeStep 16
+  contactProperties [
+    ContactProperties {
+      material1 "InteriorWheelMat"
+      coulombFriction [
+        0, 2, 0
+      ]
+      frictionRotation -0.785398 0
+      bounce 0
+      forceDependentSlip [
+        10, 0
+      ]
+    }
+    ContactProperties {
+      material1 "ExteriorWheelMat"
+      coulombFriction [
+        0, 2, 0
+      ]
+      frictionRotation 0.785398 0
+      bounce 0
+      forceDependentSlip [
+        10, 0
+      ]
+    }
+  ]
+}
+Viewpoint {
+  orientation -0.30177237763161097 -0.1727650821132256 0.9375956796514022 4.427771826217528
+  position 1.8553912380444415 6.304648459761438 4.774371069931753
+  follow "youBot"
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+Floor {
+  size 100 100
+  tileSize 2 2
+}
+WoodenBox {
+  translation 0.605448 0.00121984 0.2
+  rotation 0 0 1 -1.5707963267948966
+  size 0.6 0.6 0.4
+}
+WoodenBox {
+  translation 0.595863 -0.999288 0.2
+  rotation 0 0 1 -1.5707963267948966
+  name "wooden box(1)"
+  size 0.6 0.6 0.4
+}
+WoodenBox {
+  translation 0.588183 -2.09462 0.2
+  rotation 0 0 1 -1.5707963267948966
+  name "wooden box(2)"
+  size 0.6 0.6 0.4
+}
+WoodenBox {
+  translation 1.45102 -2.08131 0.2
+  rotation 0 0 1 -1.5707963267948966
+  name "wooden box(3)"
+  size 0.6 0.6 0.4
+}
+WoodenBox {
+  translation 1.45079 -0.97163 0.2
+  rotation 0 0 1 -1.5707963267948966
+  name "wooden box(4)"
+  size 0.6 0.6 0.4
+}
+WoodenBox {
+  translation 1.44134 -0.000600865 0.2
+  rotation 0 0 1 -1.5707963267948966
+  name "wooden box(5)"
+  size 0.6 0.6 0.4
+}
+KukaBox {
+  translation 1.67785 0.168705 0.41876
+  rotation 0 0 1 -1.5707963267948966
+}
+KukaBox {
+  translation 1.62294 -0.0352179 0.41876
+  rotation 0 0 1 -1.5707963267948966
+  name "Kuka box(17)"
+}
+KukaBox {
+  translation 1.66456 -0.172785 0.41876
+  rotation 0 0 1 -1.5707963267948966
+  name "Kuka box(16)"
+}
+KukaBox {
+  translation 1.67232 -0.78342 0.41876
+  rotation 0 0 1 -1.5707963267948966
+  name "Kuka box(15)"
+}
+KukaBox {
+  translation 1.61056 -0.904401 0.41876
+  rotation 0 0 1 -1.5707963267948966
+  name "Kuka box(14)"
+}
+KukaBox {
+  translation 1.66986 -1.13795 0.41876
+  rotation 0 0 1 -1.5707963267948966
+  name "Kuka box(13)"
+}
+KukaBox {
+  translation 1.61275 -1.86561 0.41876
+  rotation 0 0 1 -1.5707963267948966
+  name "Kuka box(12)"
+}
+KukaBox {
+  translation 1.65449 -1.97254 0.41876
+  rotation 0 0 1 -1.5707963267948966
+  name "Kuka box(11)"
+}
+KukaBox {
+  translation 1.69447 -2.12763 0.41876
+  rotation 0 0 1 -1.5707963267948966
+  name "Kuka box(10)"
+}
+KukaBox {
+  translation 0.347402 -2.17791 0.41876
+  rotation 0 0 1 -1.5707963267948966
+  name "Kuka box(9)"
+}
+KukaBox {
+  translation 0.342913 -2.02657 0.41876
+  rotation 0 0 1 -1.5707963267948966
+  name "Kuka box(8)"
+}
+KukaBox {
+  translation 0.340921 -1.86958 0.41876
+  rotation 0 0 1 -1.5707963267948966
+  name "Kuka box(7)"
+}
+KukaBox {
+  translation 0.420936 -1.02968 0.41876
+  rotation 0 0 1 -1.5707963267948966
+  name "Kuka box(6)"
+}
+KukaBox {
+  translation 0.333483 -0.902197 0.41876
+  rotation 0 0 1 -1.5707963267948966
+  name "Kuka box(5)"
+}
+KukaBox {
+  translation 0.389792 -0.797038 0.41876
+  rotation 0 0 1 -1.5707963267948966
+  name "Kuka box(4)"
+}
+KukaBox {
+  translation 0.411497 -0.0518677 0.41876
+  rotation 0 0 1 -1.5707963267948966
+  name "Kuka box(3)"
+}
+KukaBox {
+  translation 0.472629 0.00710068 0.41876
+  rotation 0 0 1 -1.5707963267948966
+  name "Kuka box(2)"
+}
+KukaBox {
+  translation 0.39788 0.171719 0.41876
+  rotation 0 0 1 -1.5707963267948966
+  name "Kuka box(1)"
+}
+Youbot {
+  translation 0 0 0.102838
+  controller "<extern>"
+  controllerArgs [
+    "demo"
+  ]
+}
