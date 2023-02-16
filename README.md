@@ -23,3 +23,4 @@ simulation backup for the webots simulator
 * Add new controller `move_pick.py`
 * Finish the base movement // 2023.2.15
 * Use local proto for the robot
+* Add camera to the robot

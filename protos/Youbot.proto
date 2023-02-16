@@ -21,7 +21,7 @@ PROTO Youbot [
   field SFVec3f           translation     0 0 0.12      # Is `Transform.translation`.
   field SFRotation        rotation        0 0 1 0       # Is `Transform.rotation`.
   field SFString          name            "youBot"      # Is `Solid.name`.
-  field SFString          controller      "youbot"      # Is `Robot.controller`.
+  field SFString          controller      "<extern>"      # Is `Robot.controller`.
   field MFString          controllerArgs  []            # Is `Robot.controllerArgs`.
   field SFString          window          "<generic>"   # Is `Robot.window`.
   field SFString          customData      ""            # Is `Robot.customData`.
@@ -141,6 +141,13 @@ Robot {
                               translation 0 0 0.135
                               rotation 0 -1 0 0
                               children [
+                                Camera {
+                        translation 0.2 0.2 0.2
+                        rotation -0.594812 0.757033 0.270369 -0.000011
+                        name "Camera"
+                        fieldOfView 1.3613
+                        width 720
+                        height 480}
                                 Arm4Mesh {
                                 }
                                 HingeJoint {
