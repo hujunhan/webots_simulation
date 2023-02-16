@@ -2,7 +2,7 @@ from controller import Robot
 from controller import Motor
 from controller import GPS
 from controller import Compass
-
+import numpy as np
 # create the Robot instance.
 class YouBotBase():
     def __init__(self) -> None:
@@ -23,11 +23,12 @@ class YouBotBase():
             self.wheels.append(self.robot.getDevice("wheel"+str(i+1)))
             self.wheels[i].setPosition(float('inf'))
             self.wheels[i].setVelocity(0.0)
-        # Get arm
-        self.arms=[]
-        for i in range(5):
-            self.arms.append(self.robot.getDevice("arm"+str(i+1)))
         
+        # Get arm
+        self.arms={}
+        for i in range(5):
+            self.arms[i+1]=(self.robot.getDevice("arm"+str(i+1)))
+        self.arm_length={1:0.253,2:0.155,3:0.135,4:0.081,5:0.105}
         # Get Sensor
         # self.gps=self.robot.getDevice("gps")
         # self.compass=self.robot.getDevice("compass")
@@ -44,6 +45,11 @@ class YouBotBase():
         if(self.robot.step(self.TIME_STEP)==-1):
             quit()
     def arm_operate(self):
+        # self.arms[2].setPosition(0.678)
+        # self.arms[3].setPosition(0.682)
+        # self.arms[4].setPosition(1.74)
+        # self.arms[5].setPosition(0.0)
+        self.arm_ik(0.1,0.15,0.23)
         pass
     
     def run(self):
@@ -54,7 +60,7 @@ class YouBotBase():
         #     self.step()
         #     self.move_left()
         self.arm_operate() ## First operation
-        
+        self.passive_wait(100)
         self.move_right()
         self.passive_wait(5)
         self.stop()
@@ -103,8 +109,33 @@ class YouBotBase():
         """ turn right
         """
         self.set_wheel_velocity([self.SPEED,-self.SPEED,self.SPEED,-self.SPEED])
-
-
+    def arm_ik(self,x,y,z):
+        """ inverse kinematics for arm
+        Args:
+            x (_type_): x coordinate
+            y (_type_): y coordinate
+            z (_type_): z coordinate
+        """
+        y1=np.sqrt(x**2+y**2)
+        z1=z+self.arm_length[4]+self.arm_length[5]-self.arm_length[1]
+        
+        a=self.arm_length[2]
+        b=self.arm_length[3]
+        c=np.sqrt(y1**2+z1**2)
+        
+        alpha=-np.arcsin(x/y1)
+        beta=-(np.pi/2-np.arccos((a**2+c**2-b**2)/(2.0*a*c))-np.arctan(z1/y1))
+        gamma=-(np.pi-np.arccos((a**2+b**2-c**2)/(2.0*a*b)))
+        delta=-(np.pi+beta+gamma)
+        epsilon=np.pi/2+alpha
+        
+        ## Print all the data
+        print(f'y1,z1,a,b,c: {y1},{z1},{a},{b},{c}')
+        print(f'alpha,beta,gamma,delta,epsilon: {alpha},{beta},{gamma},{delta},{epsilon}')
+        
+        arm_setting=[alpha,beta,gamma,delta,epsilon]
+        for i in range(5):
+            self.arms[i+1].setPosition(arm_setting[i])
 if __name__ =='__main__':
     robot=YouBotBase()
     robot.run()
