@@ -26,3 +26,5 @@ simulation backup for the webots simulator
 * Add camera to the robot
 * Add read urdf file function
 * add ur10 robot //2023.2.23
+* Make URDF reader a class
+* Format joint info to a dict list
