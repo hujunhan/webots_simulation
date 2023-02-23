@@ -2,6 +2,7 @@ from controller import Robot
 from controller import Motor
 from controller import GPS
 from controller import Compass
+from controller import Camera
 import numpy as np
 # create the Robot instance.
 class YouBotBase():
@@ -29,6 +30,10 @@ class YouBotBase():
         for i in range(5):
             self.arms[i+1]=(self.robot.getDevice("arm"+str(i+1)))
         self.arm_length={1:0.253,2:0.155,3:0.135,4:0.081,5:0.105}
+        
+        # Get camera
+        self.camera=self.robot.getDevice("camera")
+        self.camera.enable(self.TIME_STEP)
         # Get Sensor
         # self.gps=self.robot.getDevice("gps")
         # self.compass=self.robot.getDevice("compass")
