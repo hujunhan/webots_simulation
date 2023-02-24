@@ -4,10 +4,9 @@ This module contains the main functions used to parse URDF files.
 """
 
 import xml.etree.ElementTree as ET
-import numpy as np
 import warnings
 from loguru import logger
-
+import math
 class URDF:
     def __init__(self):
         self.joint_list = []
@@ -201,7 +200,7 @@ class URDF:
             origin_orientation = [0, 0, 0]
             rotation = None
             translation = None
-            bounds = [-np.inf, np.inf]
+            bounds = [float('-inf'), float('inf')]
 
             origin = joint.find("origin")
             if origin is not None:
@@ -243,84 +242,22 @@ class URDF:
             joint_info["rotation"]=rotation
             joint_info["translation"]=translation
             joint_info["bounds"]=bounds
-            # print(f'joint: {joint.attrib["name"]}')
-            # print(f'rotation: {origin_orientation}')
-            # print(f'translation: {origin_translation}')
-            # print(f'angle rotation: {rotation}')
+
             
-            ## add info to list
+            ## add info to list            
             
-            
-            ## Calculate the transformation matrix using the origin_translation and origin_orientation and rotation
-            frame_matrix = np.eye(4)
-            
-            # get the translation matrix
-            trans_x,trans_y,trans_z=origin_translation
-            translation_matrix = np.array([[1, 0, 0, trans_x], [0, 1, 0, trans_y], [0, 0, 1, trans_z], [0, 0, 0, 1]])
-            frame_matrix=np.dot(frame_matrix,translation_matrix)
-            
-            # get the rotation matrix
-            roll, pitch, yaw=origin_orientation
-            temp_matrix=np.eye(4)
-            rotation_matrix=np.dot(self.rz_matrix(yaw), np.dot(self.ry_matrix(pitch), self.rx_matrix(roll)))
-            temp_matrix[:3,:3]=rotation_matrix
-            frame_matrix=np.dot(frame_matrix,temp_matrix)
             
             self.joint_list.append(joint_info)
             # print(frame_matrix)
             
-            
-            # parameters.append(lib_link.URDFLink(
-            #     name=joint.attrib["name"],
-            #     bounds=tuple(bounds),
-            #     origin_translation=origin_translation,
-            #     origin_orientation=origin_orientation,
-            #     rotation=rotation,
-            #     translation=translation,
-            #     use_symbolic_matrix=symbolic,
-            #     joint_type=joint_type
-            # ))
 
         # Add last_link_vector to parameters
         if last_link_vector is not None:
-            # The last link doesn't provide a rotation
-            # parameters.append(lib_link.URDFLink(
-            #     origin_translation=last_link_vector,
-            #     origin_orientation=[0, 0, 0],
-            #     rotation=None,
-            #     translation=None,
-            #     name="last_joint",
-            #     use_symbolic_matrix=symbolic,
-            #     joint_type="fixed"
-            # ))
+
             pass
 
         return parameters
-    @staticmethod
-    def rx_matrix(theta):
-        """Rotation matrix around the X axis"""
-        return np.array([
-            [1, 0, 0],
-            [0, np.cos(theta), -np.sin(theta)],
-            [0, np.sin(theta), np.cos(theta)]
-        ])
 
-    @staticmethod
-    def rz_matrix(theta):
-        """Rotation matrix around the Z axis"""
-        return np.array([
-            [np.cos(theta), -np.sin(theta), 0],
-            [np.sin(theta), np.cos(theta), 0],
-            [0, 0, 1]
-        ])
-    @staticmethod
-    def ry_matrix(theta):
-        """Rotation matrix around the Y axis"""
-        return np.array([
-            [np.cos(theta), 0, np.sin(theta)],
-            [0, 1, 0],
-            [-np.sin(theta), 0, np.cos(theta)]
-        ])
 if __name__ == '__main__':
     file_path='./urdf/ur10.urdf'
     urdf=URDF()
