@@ -96,7 +96,42 @@ if __name__ == '__main__':
     # theta_list=[np.pi/3,np.pi/3]
     
     import matplotlib.pyplot as plt
-    ax = plt.figure().add_subplot(projection='3d')
+    from matplotlib.widgets import Slider
+    fig=plt.figure()
+    N=len(theta_list)
+    fig.subplots_adjust(left=0.1, right=0.7, bottom=0.1, top=1.0)
+    ax = fig.add_subplot(projection='3d')
+    
+    ax_list=[]
+    slider_list=[]
+    def update(val):
+        theta_list=[slider.val for slider in slider_list]
+        frame_history= robot.forward_kine(theta_list)
+        
+        ax.cla()
+        x=[0]
+        y=[0]
+        z=[0]
+        for i in range(len(frame_history)):
+            x.append(frame_history[i][0,3])
+            y.append(frame_history[i][1,3])
+            z.append(frame_history[i][2,3])
+        for i in range(len(x)-1):
+            ax.plot([x[i],x[i+1]],[y[i],y[i+1]],[z[i],z[i+1]])
+        ax.set_aspect('equal')
+        ax.set_xlim(-1,1)
+        ax.set_ylim(-1,1)
+        ax.set_zlim(-1,1)
+        
+        
+    # ax.plot(x,y,z,color = plt.cm.rainbow(np.linspace(0, 1, len(x))))
+    
+
+    for i in range(N):
+        axe=fig.add_axes([0.8, 1-0.9*(i+1)/N, 0.15, 0.8/N])
+        slider=Slider(axe, f'joint{i}', -np.pi, np.pi, valinit=theta_list[i])
+        slider.on_changed(update)
+        slider_list.append(slider)
     a=time.time()
     frame_history= robot.forward_kine(theta_list)
     x=[0]
@@ -113,7 +148,9 @@ if __name__ == '__main__':
     for i in range(len(x)-1):
         ax.plot([x[i],x[i+1]],[y[i],y[i+1]],[z[i],z[i+1]])
     ax.set_aspect('equal')
-    
+    ax.set_xlim(-1,1)
+    ax.set_ylim(-1,1)
+    ax.set_zlim(-1,1)
     b=time.time()    
     print(f'Forward kinematics time: {b-a}')
     plt.show()

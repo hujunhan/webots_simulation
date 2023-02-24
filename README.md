@@ -30,3 +30,5 @@ simulation backup for the webots simulator
 * Format joint info to a dict list
 * Get rid of numpy in urdf reader
 * Add forward kinematics  //2023.2.23
+* Add GUI for the robot arm simulation (forward)
+* add UR10e robot //2023.2.23
