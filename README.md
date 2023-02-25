@@ -17,6 +17,13 @@ simulation backup for the webots simulator
 2. Set the robot controller to `extern`
 3. Run the python script from anywhere
 
+## Ref
+
+* Motion Planning
+  * https://manipulation.csail.mit.edu/trajectories.html
+  * https://blogs.mathworks.com/student-lounge/2019/11/06/robot-manipulator-trajectory/
+  * 
+
 ## Changelog
 
 * Init project
